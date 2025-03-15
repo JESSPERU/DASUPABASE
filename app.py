@@ -14,12 +14,12 @@ st.title("Gestion de clientes CRUD con supabase y streamlit")
 
 st.header("Agregar cliente")
 nombre = st.text_input("Nombre")
-email = st.text_input("E-mail")
+emailing = st.text_input("E-mail")
 telefono= st.text_input("Teléfono")
 
 if st.button(f"✍️ agregar cliente"):
-    if nombre and email:
-        data = {"nombre" : nombre, "email" : email, "telefono" : telefono}
+    if nombre and emailing:
+        data = {"nombre" : nombre, "email" : emailing, "telefono" : telefono}
         response = supabase.table("clientes").insert(data).execute()
         st.success("Cliente agregado correctamente ")
     else:
