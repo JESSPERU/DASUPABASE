@@ -40,5 +40,23 @@ if clientes.data:
                 st.success(f"{cliente['nombre']} eliminado correctamente")
                 st.rerun()
 
+
+            #FORMULARIO PARA ACTUALIZAR CLIENTE
+
+            st.subheader("Actualizar Cliente")
+            nuevo_nombre = st.text_input("Nuevo Nombre", value=cliente["nombre"], key=f"nombre_{cliente['id']}")    
+            nuevo_email = st.text_input("Nuevo email", value=cliente["email"], key=f"email_{cliente['id']}")
+            nuevo_telefono = st.text_input("Nuevo teléfono", value=cliente["telefono"], key=f"telefono_{cliente['id']}")
+
+            if st.button("Actualizar", key=f"upd_{cliente['id']}"):
+                supabase.table("clientes").update({
+                    "nombre": nuevo_nombre,
+                    "email": nuevo_email,
+                    "telefono": nuevo_telefono
+                }).eq("id", cliente ["id"]).execute()
+
+                st.success(f"{cliente ['nombre']} actualizado correctamente")
+                st.rerun()
+
 else:
     st.info("No hay clientes registrados aún")
