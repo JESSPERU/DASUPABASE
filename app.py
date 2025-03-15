@@ -13,11 +13,11 @@ supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
 st.title("Gestion de clientes CRUD con supabase y streamlit")
 
 st.header("Agregar cliente")
-nombre = st.text_input("Nombre Preferido")
+nombre = st.text_input("Nombre")
 email = st.text_input("E-mail")
-telefono= st.text_input("Teléfono numero")
+telefono= st.text_input("Teléfono")
 
-if st.button("agregar cliente"):
+if st.button(f"✍️ agregar cliente"):
     if nombre and email:
         data = {"nombre" : nombre, "email" : email, "telefono" : telefono}
         response = supabase.table("clientes").insert(data).execute()
