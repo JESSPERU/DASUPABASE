@@ -14,12 +14,12 @@ st.title("Gestion de clientes CRUD con supabase y streamlit")
 
 st.header("Agregar cliente")
 nombre = st.text_input("Nombre")
-emailing = st.text_input("E-mail")
+email = st.text_input("E-mail")
 telefono= st.text_input("Teléfono")
 
 if st.button(f"✍️ agregar cliente"):
-    if nombre and emailing:
-        data = {"nombre" : nombre, "email" : emailing, "telefono" : telefono}
+    if nombre and email:
+        data = {"nombre" : nombre, "email" : email, "telefono" : telefono}
         response = supabase.table("clientes").insert(data).execute()
         st.success("Cliente agregado correctamente ")
     else:
@@ -27,6 +27,7 @@ if st.button(f"✍️ agregar cliente"):
 
 st.header("Clientes registrados")
 clientes = supabase.table("clientes").select("*").execute()
+
 if clientes.data:
     for cliente in clientes.data:
         st.subheader(cliente["nombre"])
@@ -37,7 +38,7 @@ if clientes.data:
         if st.button(f"❌ Eliminar {cliente['nombre']}", key=cliente["id"]):
             supabase.table("clientes").delete().eq("id", cliente["id"]).execute()
             st.success(f"{cliente['nombre']} eliminado correctamente")
-            st.experimental_rerun()
+            st.rerun()
 
 else:
     st.info("No hay clientes registrados aún")
